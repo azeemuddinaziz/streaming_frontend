@@ -1,11 +1,13 @@
-import { ModeToggle } from "./components/mode-toggle";
-import { Button } from "./components/ui/button";
+import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
 
 function App() {
   return (
-    <div>
-      <Button>Click Me!</Button>
-      <ModeToggle />
+    <div className="h-screen overflow-hidden">
+      <Header />
+      <div className="h-full grid grid-cols-[1.1fr_5fr_1fr]">
+        <Sidebar />
+      </div>
     </div>
   );
 }
