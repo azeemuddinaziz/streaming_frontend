@@ -1,19 +1,22 @@
-import logo from "../assets/logo.svg";
+import lightLogo from "../assets/light-logo.svg";
+import darkLogo from "../assets/dark-logo.svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
+import { useTheme } from "./theme-provider";
 
 function Header() {
+  const { theme } = useTheme();
+
   return (
     <div className="flex justify-between px-10 py-4 border-b">
-      {/* //logo
-        //searchbar
-        //login
-         //themeswitch button */}
-
       <div className="flex items-center gap-2">
-        <img src={logo} alt="logo of videoTube" width={30} />
+        {theme == "dark" ? (
+          <img src={darkLogo} alt="logo of videoTube" width={30} />
+        ) : (
+          <img src={lightLogo} alt="logo of videoTube" width={30} />
+        )}
         <span className="text-xl font-bold">VideoTube</span>
       </div>
 
