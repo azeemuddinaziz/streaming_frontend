@@ -2,18 +2,21 @@ import { History, Home, ListVideo } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
     <div className="border border-t-0 h-full">
       <div className="flex flex-col gap-2 p-2">
-        <Button
-          className="flex items-center justify-start gap-4 w-full py-2 h-full"
-          variant={"ghost"}
-        >
-          <Home className="h-5 w-5" />
-          <span className="text-md  font-normal">Home</span>
-        </Button>
+        <Link to={"/"}>
+          <Button
+            className="flex items-center justify-start gap-4 w-full py-2 h-full"
+            variant={"ghost"}
+          >
+            <Home className="h-5 w-5" />
+            <span className="text-md  font-normal">Home</span>
+          </Button>
+        </Link>
         <Button
           className="flex items-center justify-start gap-4 w-full py-2 h-full"
           variant={"ghost"}

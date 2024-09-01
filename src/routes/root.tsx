@@ -4,9 +4,9 @@ import { Outlet } from "react-router-dom";
 
 export default function Root() {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="flex flex-col h-screen">
       <Header />
-      <div className="h-full grid grid-cols-[auto_1fr]">
+      <div className="flex flex-1 overflow-hidden">
         <Sidebar />
         <Outlet />
       </div>

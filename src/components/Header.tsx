@@ -5,9 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { useTheme } from "./theme-provider";
+import { Link } from "react-router-dom";
 
 function Header() {
   const { theme } = useTheme();
+  console.log(theme);
 
   return (
     <div className="flex justify-between px-10 py-4 border-b">
@@ -32,7 +34,9 @@ function Header() {
       </div>
 
       <div className="flex items-center gap-2">
-        <Button variant={"outline"}>Login</Button>
+        <Link to={"/login"}>
+          <Button variant={"outline"}>Login</Button>
+        </Link>
         <ModeToggle />
       </div>
     </div>
