@@ -1,5 +1,37 @@
 import axios from "axios";
 
+const registerUser = async (
+  fullname: String,
+  username: String,
+  email: String,
+  password: String,
+  avatar: String,
+  coverImage: String
+) => {
+  try {
+    const { data } = await axios.post(
+      "http://localhost:8000/api/v1/users/register",
+      {
+        fullname,
+        username,
+        email,
+        password,
+        avatar,
+        coverImage,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return data.statusCode.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 const loginUser = async (username: String, password: String) => {
   try {
     const response = await axios.post(
@@ -21,4 +53,4 @@ const loginUser = async (username: String, password: String) => {
   }
 };
 
-export { loginUser };
+export { registerUser, loginUser };
