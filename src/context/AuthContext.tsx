@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -16,6 +22,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AuthProvider = ({ children }: UserProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({});
+
+  const cookieExists = (cookieName: any) => {
+    const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
+    return cookies.some((cookie) => cookie.startsWith(`${cookieName}=`));
+  };
+
+  useEffect(() => {
+    if (cookieExists("accessToken")) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
