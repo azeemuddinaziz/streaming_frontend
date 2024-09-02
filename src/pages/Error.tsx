@@ -6,9 +6,8 @@ type ErrorType = {
   message?: string;
 };
 
-export default function ErrorPage() {
+export default function Error() {
   const error = useRouteError() as ErrorType;
-  console.error(error);
 
   return (
     <div className="flex flex-col gap-6 items-center justify-center h-screen">
