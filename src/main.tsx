@@ -11,6 +11,7 @@ import Login from "@/pages/Login.tsx";
 import Register from "@/pages/Register.tsx";
 import PlayVideo from "@/pages/PlayVideo.tsx";
 import SimpleLayout from "@/layouts/SimpleLayout.tsx";
+import { AuthProvider } from "@/context/AuthContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -55,8 +56,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </AuthProvider>
   </StrictMode>
 );
