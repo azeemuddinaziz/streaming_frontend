@@ -5,12 +5,12 @@ import "@/index.css";
 import { ThemeProvider } from "@/components/ThemeProvider.tsx";
 import Error from "@/pages/Error.tsx";
 import Home from "@/pages/Home.tsx";
-import MainLayout from "./routes/MainLayout.tsx";
-import { ProtectedRoute } from "@/routes/ProtectedRoute.tsx";
+import MainLayout from "./layouts/MainLayout.tsx";
+import { ProtectedRoute } from "@/layouts/ProtectedRoute.tsx";
 import Login from "@/pages/Login.tsx";
 import Register from "@/pages/Register.tsx";
-import PlayVideo from "./pages/PlayVideo.tsx";
-import SimpleLayout from "./routes/SimpleLayout.tsx";
+import PlayVideo from "@/pages/PlayVideo.tsx";
+import SimpleLayout from "@/layouts/SimpleLayout.tsx";
 
 const router = createBrowserRouter([
   {
