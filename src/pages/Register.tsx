@@ -56,7 +56,6 @@ function Register() {
         avatar,
         coverImage
       );
-      console.log(data);
       if (!data) return "Server did not respond.";
 
       setUser(data);
@@ -65,7 +64,7 @@ function Register() {
     } catch (error) {
       setIsRegistered(false);
       SetIsLoading(false);
-      console.error(error);
+      return error;
     }
   };
 
