@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const getAllVideos = async (query: String) => {
+const getAllVideos = async (query: String = "") => {
   try {
-    const response = await axios.get(
+    const { data } = await axios.get(
       `http://localhost:8000/api/v1/video/results?query=${query}`
     );
-    return response.data.data.docs;
+    return data.data.docs;
   } catch (error) {
     return error;
   }
@@ -13,10 +13,10 @@ const getAllVideos = async (query: String) => {
 
 const getVideoById = async (videoId: String) => {
   try {
-    const response = await axios.get(
+    const { data } = await axios.get(
       `http://localhost:8000/api/v1/video/search/${videoId}`
     );
-    return response.data.data.video;
+    return data.data.video;
   } catch (error) {
     return error;
   }
