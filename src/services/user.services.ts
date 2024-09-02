@@ -34,7 +34,7 @@ const registerUser = async (
 
 const loginUser = async (username: String, password: String) => {
   try {
-    const response = await axios.post(
+    const { data } = await axios.post(
       "http://localhost:8000/api/v1/users/login",
       {
         username,
@@ -47,9 +47,11 @@ const loginUser = async (username: String, password: String) => {
         withCredentials: true,
       }
     );
-    return response.data.data.user;
+
+    return data.data.user;
   } catch (error) {
-    return error;
+    //@ts-ignore
+    return error.status;
   }
 };
 
