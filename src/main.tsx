@@ -1,28 +1,55 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "@/index.css";
-import { ThemeProvider } from "@/components/theme-provider.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from "@/routes/root.tsx";
-import ErrorPage from "@/pages/Error";
-import Home from "@/pages/Home";
-import SignIn from "./pages/SignIn";
+import "@/index.css";
+import { ThemeProvider } from "@/components/ThemeProvider.tsx";
+import Error from "@/pages/Error.tsx";
+import Home from "@/pages/Home.tsx";
+import MainLayout from "./routes/MainLayout.tsx";
+import { ProtectedRoute } from "@/routes/ProtectedRoute.tsx";
+import Login from "@/pages/Login.tsx";
+import Register from "@/pages/Register.tsx";
+import PlayVideo from "./pages/PlayVideo.tsx";
+import SimpleLayout from "./routes/SimpleLayout.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
+    element: <MainLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
         element: <Home />,
       },
+      {
+        path: "/search/:videoId",
+        element: <PlayVideo />,
+      },
     ],
   },
   {
-    path: "/login",
-    element: <SignIn />,
+    element: <SimpleLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/protected",
+        element: <div>Protected</div>,
+      },
+    ],
   },
 ]);
 
