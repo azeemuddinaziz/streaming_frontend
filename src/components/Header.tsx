@@ -1,32 +1,47 @@
-import lightLogo from "../assets/light-logo.svg";
-import darkLogo from "../assets/dark-logo.svg";
+import { Link } from "react-router-dom";
+import { Search, User } from "lucide-react";
+import lightLogo from "@/assets/light-logo.svg";
+import darkLogo from "@/assets/dark-logo.svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
-import { ModeToggle } from "./mode-toggle";
-import { useTheme } from "./theme-provider";
-import { Link } from "react-router-dom";
+import { useTheme } from "@/components/ThemeProvider.tsx";
+import { ModeToggle } from "@/components/ModeToggle";
+import { useAuth } from "@/context/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
-function Header() {
+interface HeaderPropsType {
+  isSimple: Boolean;
+}
+
+function Header({ isSimple }: HeaderPropsType) {
   const { theme } = useTheme();
-  console.log(theme);
+  const { isAuthenticated } = useAuth();
 
   return (
-    <div className="flex justify-between px-10 py-4 border-b">
-      <div className="flex items-center gap-2">
-        {theme == "dark" ? (
-          <img src={darkLogo} alt="logo of videoTube" width={30} />
-        ) : (
-          <img src={lightLogo} alt="logo of videoTube" width={30} />
-        )}
-        <span className="text-xl font-bold">VideoTube</span>
-      </div>
+    <div className="flex items-center justify-between px-10 py-4 border-b">
+      <Link to={"/"}>
+        <div className="flex items-center gap-2">
+          {theme == "dark" ? (
+            <img src={darkLogo} alt="logo of videoTube" width={30} />
+          ) : (
+            <img src={lightLogo} alt="logo of videoTube" width={30} />
+          )}
+          <span className="text-xl font-bold">VideoTube</span>
+        </div>
+      </Link>
 
       <div className="flex w-full max-w-sm items-center space-x-2">
         <Input
           type="text"
           placeholder="Search"
-          className="focus-visible:ring-transparent focus-visible:border-white"
+          className="focus-visible:ring-transparent focus-visible:border-primary"
         />
         <Button type="submit" variant={"outline"}>
           <Search className="h-4 w-4" />
@@ -34,10 +49,33 @@ function Header() {
       </div>
 
       <div className="flex items-center gap-2">
-        <Link to={"/login"}>
-          <Button variant={"outline"}>Login</Button>
-        </Link>
         <ModeToggle />
+
+        {!isSimple && !isAuthenticated && (
+          <Link to={"/login"}>
+            <Button variant={"outline"}>Login</Button>
+          </Link>
+        )}
+
+        {isAuthenticated && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                <User />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <Link to="/profile">
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+              </Link>
+              <Link to="/logout">
+                <DropdownMenuItem>Log Out</DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </div>
   );

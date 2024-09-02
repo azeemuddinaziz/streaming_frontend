@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
 import { History, Home, ListVideo } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 function Sidebar() {
+  const { isAuthenticated } = useAuth();
   return (
-    <div className="border border-t-0 h-full">
+    <div className="block border border-t-0 h-full ">
       <div className="flex flex-col gap-2 p-2">
         <Link to={"/"}>
           <Button
@@ -37,46 +39,58 @@ function Sidebar() {
 
       <div className="flex flex-col gap-2 p-2">
         <h4 className="text-base font-bold  px-2 py-2">Subscriptions</h4>
-        <div className="flex flex-col gap-2">
-          <Button
-            className="flex items-center justify-start gap-4 w-full py-2 h-full"
-            variant={"ghost"}
-          >
-            <Avatar className="w-6 h-6">
-              <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1724997677/dbkh5o3bi8pm4va1zlhs.jpg" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <span className="text-md font-normal overflow-hidden text-ellipsis">
-              Azeemuddin Aziz
-            </span>
-          </Button>
+        {isAuthenticated && (
+          <div className="flex flex-col gap-2">
+            <Button
+              className="flex items-center justify-start gap-4 w-full py-2 h-full"
+              variant={"ghost"}
+            >
+              <Avatar className="w-6 h-6">
+                <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1724997677/dbkh5o3bi8pm4va1zlhs.jpg" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <span className="text-md font-normal overflow-hidden text-ellipsis">
+                Azeemuddin Aziz
+              </span>
+            </Button>
 
-          <Button
-            className="flex items-center justify-start gap-4 w-full py-2 h-full"
-            variant={"ghost"}
-          >
-            <Avatar className="w-6 h-6">
-              <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1725021234/x70kcrftagfwm2sbrjxj.png" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <span className="text-md font-normal overflow-hidden text-ellipsis">
-              Rakazone Gaming
-            </span>
-          </Button>
+            <Button
+              className="flex items-center justify-start gap-4 w-full py-2 h-full"
+              variant={"ghost"}
+            >
+              <Avatar className="w-6 h-6">
+                <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1725021234/x70kcrftagfwm2sbrjxj.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <span className="text-md font-normal overflow-hidden text-ellipsis">
+                Rakazone Gaming
+              </span>
+            </Button>
 
-          <Button
-            className="flex items-center justify-start gap-4 w-full py-2 h-full"
-            variant={"ghost"}
-          >
-            <Avatar className="w-6 h-6">
-              <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1725066628/v4s31dpyoq9intfmqggg.webp" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <span className="text-md font-normal overflow-hidden text-ellipsis">
-              Shadman
-            </span>
-          </Button>
-        </div>
+            <Button
+              className="flex items-center justify-start gap-4 w-full py-2 h-full"
+              variant={"ghost"}
+            >
+              <Avatar className="w-6 h-6">
+                <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1725066628/v4s31dpyoq9intfmqggg.webp" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <span className="text-md font-normal overflow-hidden text-ellipsis">
+                Shadman
+              </span>
+            </Button>
+          </div>
+        )}
+
+        {!isAuthenticated && (
+          <Link to={"login/"}>
+            <Button variant={"outline"}>
+              <span className="text-md font-normal overflow-hidden text-ellipsis">
+                Login to view subscriptions
+              </span>
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );
