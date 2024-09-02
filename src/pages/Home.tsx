@@ -9,6 +9,7 @@ type Video = {
   description: string;
   views: number;
   createdAt: string;
+  _id: string;
 };
 
 function Home() {
@@ -24,14 +25,15 @@ function Home() {
     <ScrollArea>
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4 p-2 ">
         {videos.length > 0 ? (
-          videos.map((video, id) => (
+          videos.map((video) => (
             <VideoTile
-              key={id}
+              key={video._id}
               title={video.title}
               description={video.description}
               thumbnail={video.thumbnail}
               views={video.views}
               createdAt={video.createdAt}
+              id={video._id}
             />
           ))
         ) : (
