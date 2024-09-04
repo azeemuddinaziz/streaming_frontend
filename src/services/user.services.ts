@@ -55,4 +55,69 @@ const loginUser = async (username: String, password: String) => {
   }
 };
 
-export { registerUser, loginUser };
+const getCurrentUser = async () => {
+  try {
+    const { data } = await axios.get(
+      "http://localhost:8000/api/v1/users/currentUser",
+      {
+        withCredentials: true,
+      }
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
+const getUserByUsername = async (username: string) => {
+  try {
+    const { data } = await axios.get(
+      `http://localhost:8000/api/v1/users/channel/${username}`
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
+const getChannelByChannelName = async (channelname: string) => {
+  try {
+    const { data } = await axios.get(
+      `http://localhost:8000/api/v1/users/channel/${channelname}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
+const logOutUser = async () => {
+  try {
+    const { data } = await axios.post(
+      `http://localhost:8000/api/v1/users/logout`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  getCurrentUser,
+  getUserByUsername,
+  getChannelByChannelName,
+  logOutUser,
+};
