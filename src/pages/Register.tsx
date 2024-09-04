@@ -58,7 +58,6 @@ function Register() {
       );
       if (!data) return "Server did not respond.";
 
-      setUser(data);
       SetIsLoading(false);
       setIsRegistered(true);
     } catch (error) {
