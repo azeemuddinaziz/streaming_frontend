@@ -1,3 +1,4 @@
+import { getCurrentUser } from "@/services/user.services";
 import {
   createContext,
   ReactNode,
@@ -11,6 +12,8 @@ interface AuthContextType {
   setIsAuthenticated: (value: boolean) => void;
   user: Object;
   setUser: (user: Record<string, any>) => void;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface UserProviderProps {
@@ -21,24 +24,36 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider = ({ children }: UserProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({});
 
-  const cookieExists = (cookieName: any) => {
-    const cookies = document.cookie.split(";").map((cookie) => cookie.trim());
-    return cookies.some((cookie) => cookie.startsWith(`${cookieName}=`));
-  };
-
   useEffect(() => {
-    if (cookieExists("accessToken")) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
+    const checkAuth = async () => {
+      try {
+        const user = await getCurrentUser();
+        if (user == 401) throw "Unauthorized request";
+        setUser(user);
+        setIsAuthenticated(true);
+      } catch (error) {
+        return ["Failed to check authentication", error];
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, isAuthenticated, setIsAuthenticated }}
+      value={{
+        user,
+        setUser,
+        isAuthenticated,
+        setIsAuthenticated,
+        isLoading,
+        setIsLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>
