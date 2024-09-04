@@ -67,7 +67,6 @@ function Login() {
       const data = await loginUser(username, password);
 
       if (!data) return "Data not found";
-      console.log(data);
       if (data === 404) throw "User not found";
       if (data === 500) throw "Password is incorrect";
 
@@ -120,7 +119,7 @@ function Login() {
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="password">Password</Label>
               <Input
-                type="text"
+                type="password"
                 id="password"
                 placeholder="Password"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
