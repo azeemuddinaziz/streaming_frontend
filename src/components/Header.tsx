@@ -22,7 +22,7 @@ interface HeaderPropsType {
 
 function Header({ isSimple }: HeaderPropsType) {
   const { theme } = useTheme();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <div className="flex items-center justify-between px-10 py-4 border-b">
@@ -67,7 +67,10 @@ function Header({ isSimple }: HeaderPropsType) {
             <DropdownMenuContent className="w-56">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Link to="/profile">
+              <Link
+                //@ts-ignore
+                to={`/profile/${user.username}`}
+              >
                 <DropdownMenuItem>Profile</DropdownMenuItem>
               </Link>
               <Link to="/logout">
