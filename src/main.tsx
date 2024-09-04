@@ -12,6 +12,8 @@ import Register from "@/pages/Register.tsx";
 import PlayVideo from "@/pages/PlayVideo.tsx";
 import SimpleLayout from "@/layouts/SimpleLayout.tsx";
 import { AuthProvider } from "@/context/AuthContext.tsx";
+import Profile from "./pages/Profile.tsx";
+import Logout from "./pages/Logout.tsx";
 
 const router = createBrowserRouter([
   {
@@ -45,10 +47,15 @@ const router = createBrowserRouter([
   },
   {
     element: <ProtectedRoute />,
+    errorElement: <Error />,
     children: [
       {
-        path: "/protected",
-        element: <div>Protected</div>,
+        path: "/profile/:username",
+        element: <Profile />,
+      },
+      {
+        path: "/logout",
+        element: <Logout />,
       },
     ],
   },
