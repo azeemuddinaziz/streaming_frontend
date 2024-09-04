@@ -114,7 +114,7 @@ function PlayVideo() {
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </div>
-          <div className="bg-muted p-4 rounded-lg">
+          <div className="flex flex-col bg-muted p-4 rounded-lg">
             <span className="text-sm font-medium mb-2">
               1,234,567 views • May 9, 2008
             </span>
