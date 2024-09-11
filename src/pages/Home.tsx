@@ -6,36 +6,49 @@ import { useEffect, useState } from "react";
 type Video = {
   thumbnail: string;
   title: string;
-  description: string;
+  username: string;
   views: number;
-  createdAt: string;
   _id: string;
 };
 
-function Home() {
+type Props = {
+  className?: string;
+};
+
+function Home({ className }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
+  const [error, setError] = useState();
 
   useEffect(() => {
-    (async () => {
-      setVideos(await getAllVideos());
-    })();
+    try {
+      setError(null);
+      (async () => {
+        setVideos(await getAllVideos());
+      })();
+    } catch (error) {
+      setError(error);
+    }
   }, []);
 
   return (
     <ScrollArea>
-      <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4 p-2 ">
+      <div className={`grid md:grid-cols-4 gap-6 p-4 w-full ${className}`}>
         {videos.length > 0 ? (
-          videos.map((video) => (
-            <VideoTile
-              key={video._id}
-              title={video.title}
-              description={video.description}
-              thumbnail={video.thumbnail}
-              views={video.views}
-              createdAt={video.createdAt}
-              id={video._id}
-            />
-          ))
+          videos.map((video) => {
+            return (
+              <VideoTile
+                key={video._id}
+                title={video.title}
+                thumbnail={video.thumbnail}
+                //@ts-ignore
+                username={video.ownerDetails.username}
+                //@ts-ignore
+                avatar={video.ownerDetails.avatar}
+                views={video.views}
+                id={video._id}
+              />
+            );
+          })
         ) : (
           <div>
             <div className="text-gray-500">

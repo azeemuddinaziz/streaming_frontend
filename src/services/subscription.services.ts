@@ -19,7 +19,7 @@ const toggleSubscription = async (channelId: string) => {
 const getSubscriptionList = async (userId: string) => {
   try {
     const { data } = await axios.get(
-      `http://localhost:8000/api/v1/subscription//channelList/${userId}`
+      `http://localhost:8000/api/v1/subscription/channelList/${userId}`
     );
     return data.data;
   } catch (error) {

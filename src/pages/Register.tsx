@@ -25,7 +25,7 @@ interface FormData {
 }
 
 function Register() {
-  const { isAuthenticated, setUser } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [isRegistered, setIsRegistered] = useState(false);
   const [isLoading, SetIsLoading] = useState(false);
   const navigate = useNavigate();

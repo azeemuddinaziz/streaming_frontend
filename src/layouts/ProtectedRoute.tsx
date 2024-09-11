@@ -1,8 +1,13 @@
 import { useAuth } from "@/context/AuthContext";
 import { Navigate } from "react-router-dom";
 import MainLayout from "./MainLayout";
+import SimpleLayout from "./SimpleLayout";
 
-function ProtectedRoute() {
+type Props = {
+  isSimple?: boolean;
+};
+
+function ProtectedRoute({ isSimple }: Props) {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
@@ -11,6 +16,10 @@ function ProtectedRoute() {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (isSimple) {
+    return <SimpleLayout />;
   }
 
   return <MainLayout />;

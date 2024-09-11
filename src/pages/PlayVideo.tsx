@@ -17,8 +17,8 @@ import {
   Download,
   MoreHorizontal,
 } from "lucide-react";
-import Sidebar from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
+import Home from "./Home";
 
 function PlayVideo() {
   const [video, setVideo] = useState({});
@@ -40,6 +40,7 @@ function PlayVideo() {
   useEffect(() => {
     (async () => {
       setLoading(true);
+      //@ts-ignore
       setVideo(await getVideoById(videoId));
     })();
     setLoading(false);
@@ -50,31 +51,46 @@ function PlayVideo() {
   }
 
   return (
-    <div className="flex">
-      <Card className="w-full  mx-auto">
+    <div className="grid grid-cols-[minmax(900px,_1fr)_280px] overflow-y-scroll w-full">
+      <Card className="w-full">
         <CardContent className="p-0">
           <div className="aspect-video w-full bg-black">
             <video
               className="w-full h-full"
               controls
+              //@ts-ignore
               poster={video.thumbnail}
+              //@ts-ignore
               src={video.videoFile}
             ></video>
           </div>
         </CardContent>
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">{video.title}</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            {
+              //@ts-ignore
+              video.title
+            }
+          </CardTitle>
           <CardDescription className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Avatar className="w-8 h-8">
                 <AvatarImage
-                  src="/placeholder.svg?height=40&width=40"
+                  src={
+                    //@ts-ignore
+                    video.owner?.avatar
+                  }
                   alt="Channel avatar"
                 />
                 <AvatarFallback>CH</AvatarFallback>
               </Avatar>
               <div className="flex gap-2  items-center">
-                <span className="text-sm font-medium">{video.owner}</span>
+                <span className="text-sm font-medium">
+                  {
+                    //@ts-ignore
+                    video.owner?.username
+                  }
+                </span>
                 <Separator orientation="vertical" />
                 <span className="text-xs text-muted-foreground">
                   1.2M subscribers
@@ -116,19 +132,22 @@ function PlayVideo() {
           </div>
           <div className="flex flex-col bg-muted p-4 rounded-lg">
             <span className="text-sm font-medium mb-2">
-              1,234,567 views • May 9, 2008
+              {
+                //@ts-ignore
+                video.views
+              }
+              <span> • Views</span>
             </span>
             <span className="text-sm">
-              Big Buck Bunny tells the story of a giant rabbit with a heart
-              bigger than himself. When one sunny day three rodents rudely
-              harass him, something snaps... and the rabbit ain't no bunny
-              anymore! In the typical cartoon tradition he prepares the nasty
-              rodents a comical revenge.
+              {
+                //@ts-ignore
+                video.description
+              }
             </span>
           </div>
         </CardContent>
       </Card>
-      <Sidebar />
+      <Home className={"md:grid-cols-none overflow-hidden"} />
     </div>
   );
 }

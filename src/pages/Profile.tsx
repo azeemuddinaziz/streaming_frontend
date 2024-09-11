@@ -11,9 +11,9 @@ import { getChannelByChannelName } from "@/services/user.services";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { toggleSubscription } from "@/services/subscription.services";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Home from "./Home";
 import { useAuth } from "@/context/AuthContext";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Profile() {
   const { user } = useAuth();
@@ -29,7 +29,6 @@ export default function Profile() {
         setProfile(data);
       };
       getData();
-      console.log(profile);
     } catch (error) {
       return error;
     }
@@ -49,7 +48,7 @@ export default function Profile() {
   };
 
   return (
-    <ScrollArea className="overflow-scroll w-full">
+    <ScrollArea className="w-full">
       <Card>
         <CardHeader className="flex flex-col gap-4">
           <div className="h-48 ">
@@ -131,9 +130,7 @@ export default function Profile() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="videos">
-              <div className="grid grid-cols-4 gap-4">
-                <Home />
-              </div>
+              <Home />
             </TabsContent>
             <TabsContent value="password">
               Change your password here.
