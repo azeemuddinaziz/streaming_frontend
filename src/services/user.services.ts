@@ -5,8 +5,8 @@ const registerUser = async (
   username: String,
   email: String,
   password: String,
-  avatar: String,
-  coverImage: String
+  avatar: File,
+  coverImage: File
 ) => {
   try {
     const { data } = await axios.post(
@@ -113,6 +113,44 @@ const refreshUserTokens = async () => {
   }
 };
 
+const changeCoverImage = async (coverImage: File) => {
+  try {
+    const { data } = await axios.patch(
+      `http://localhost:8000/api/v1/users/updateCoverImage`,
+      { coverImage },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
+const changeAvatar = async (avatar: File) => {
+  try {
+    const { data } = await axios.patch(
+      `http://localhost:8000/api/v1/users/updateAvatar`,
+      { avatar },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
 const logOutUser = async () => {
   try {
     const { data } = await axios.post(
@@ -137,4 +175,6 @@ export {
   getChannelByChannelName,
   logOutUser,
   refreshUserTokens,
+  changeAvatar,
+  changeCoverImage,
 };

@@ -7,18 +7,27 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
-import { getChannelByChannelName } from "@/services/user.services";
-import { useParams } from "react-router-dom";
+import {
+  changeAvatar,
+  changeCoverImage,
+  getChannelByChannelName,
+} from "@/services/user.services";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { toggleSubscription } from "@/services/subscription.services";
 import Home from "./Home";
 import { useAuth } from "@/context/AuthContext";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Edit, Loader2 } from "lucide-react";
 
 export default function Profile() {
   const { user } = useAuth();
   const { username } = useParams();
   const [profile, setProfile] = useState();
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [changeData, setChangeData] = useState({});
 
   //@ts-ignore
   useEffect(() => {
@@ -47,11 +56,68 @@ export default function Profile() {
     }
   };
 
+  const handleEditSave = async () => {
+    setIsLoading(true);
+
+    try {
+      //@ts-ignore
+      if (changeData?.avatar) {
+        //@ts-ignore
+        const data = await changeAvatar(changeData.avatar);
+        if (!data) throw "Error while updating avatar";
+      }
+
+      //@ts-ignore
+      if (changeData?.coverImage) {
+        //@ts-ignore
+        const data = await changeCoverImage(changeData.coverImage);
+        if (!data) throw "Error while updating coverImage";
+      }
+
+      setIsLoading(false);
+      setIsEditMode(false);
+      navigate(0);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  };
+
+  if (isLoading)
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <Loader2 className="opacity-50 animate-spin" size={200} />
+      </div>
+    );
+
   return (
     <ScrollArea className="w-full">
       <Card>
         <CardHeader className="flex flex-col gap-4">
-          <div className="h-48 ">
+          <div
+            className={`h-48 ${
+              isEditMode && "relative flex items-center justify-center"
+            }`}
+          >
+            {isEditMode && (
+              <div className="absolute w-full h-full bg-black/80 flex items-center justify-center">
+                <Button size={"icon"}>
+                  <Edit />
+                  <input
+                    type="file"
+                    className="absolute opacity-0 cursor-pointer"
+                    accept="image/*"
+                    onChange={(e) =>
+                      setChangeData({
+                        ...changeData,
+                        //@ts-ignore
+                        coverImage: e.target.files[0],
+                      })
+                    }
+                  />
+                </Button>
+              </div>
+            )}
             <img
               //@ts-ignore
               src={profile.coverImage}
@@ -60,7 +126,26 @@ export default function Profile() {
           </div>
           <div className="flex justify-between items-center px-4">
             <div className="flex gap-4 items-center">
-              <div className="w-1/6 rounded-full overflow-hidden">
+              <div className="relative w-1/6 rounded-full overflow-hidden flex items-center justify-center">
+                {isEditMode && (
+                  <div className="absolute w-full h-full rounded-full bg-black/80 flex items-center justify-center">
+                    <Button size={"icon"}>
+                      <Edit />
+                      <input
+                        type="file"
+                        className="absolute opacity-0 cursor-pointer"
+                        accept="image/*"
+                        onChange={(e) =>
+                          setChangeData({
+                            ...changeData,
+                            //@ts-ignore
+                            avatar: e.target.files[0],
+                          })
+                        }
+                      />
+                    </Button>
+                  </div>
+                )}
                 <img
                   //@ts-ignore
                   src={profile.avatar}
@@ -107,10 +192,19 @@ export default function Profile() {
                 <Button onClick={() => handleSubscribeClick()}>
                   Subscribe
                 </Button>
-              ) : (
-                <Button onClick={() => console.log("clicked")}>
+              ) : !isEditMode ? (
+                <Button onClick={() => setIsEditMode(true)}>
                   Edit Profile
                 </Button>
+              ) : (
+                isEditMode && (
+                  <Button
+                    onClick={() => handleEditSave()}
+                    variant={"destructive"}
+                  >
+                    Save Changes
+                  </Button>
+                )
               )
             }
           </div>
