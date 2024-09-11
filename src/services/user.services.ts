@@ -97,6 +97,22 @@ const getChannelByChannelName = async (channelname: string) => {
   }
 };
 
+const refreshUserTokens = async () => {
+  try {
+    const { data } = await axios.post(
+      `http://localhost:8000/api/v1/users/refreshToken`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
 const logOutUser = async () => {
   try {
     const { data } = await axios.post(
@@ -120,4 +136,5 @@ export {
   getUserByUsername,
   getChannelByChannelName,
   logOutUser,
+  refreshUserTokens,
 };
