@@ -67,11 +67,13 @@ function Header({ isSimple }: HeaderPropsType) {
       </div>
 
       <div className="flex items-center gap-2">
-        <Link to={`/upload`}>
-          <Button variant={"outline"} size={"icon"}>
-            <Upload className="w-5 h-5" />
-          </Button>
-        </Link>
+        {isAuthenticated && (
+          <Link to={`/upload`}>
+            <Button variant={"outline"} size={"icon"}>
+              <Upload className="w-5 h-5" />
+            </Button>
+          </Link>
+        )}
 
         <ModeToggle />
 
