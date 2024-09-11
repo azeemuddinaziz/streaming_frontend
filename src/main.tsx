@@ -14,6 +14,10 @@ import SimpleLayout from "@/layouts/SimpleLayout.tsx";
 import { AuthProvider } from "@/context/AuthContext.tsx";
 import Profile from "./pages/Profile.tsx";
 import Logout from "./pages/Logout.tsx";
+import Subscriptions from "./pages/Subscriptions.tsx";
+import SearchResults from "./pages/SearchResults.tsx";
+import Upload from "./pages/Upload.tsx";
+import RefreshToken from "./pages/RefreshToken.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +33,10 @@ const router = createBrowserRouter([
         path: "/search/:videoId",
         element: <PlayVideo />,
       },
+      {
+        path: "/results",
+        element: <SearchResults />,
+      },
     ],
   },
   {
@@ -43,6 +51,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
       },
+      {
+        path: "/refresh",
+        element: <RefreshToken />,
+      },
     ],
   },
   {
@@ -54,8 +66,26 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
+        path: "/subscriptions",
+        element: <Subscriptions />,
+      },
+      {
+        path: "/history",
+        element: <div>History</div>,
+      },
+      {
         path: "/logout",
         element: <Logout />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute isSimple />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/upload",
+        element: <Upload />,
       },
     ],
   },
