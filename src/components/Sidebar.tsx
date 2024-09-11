@@ -1,38 +1,72 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { History, Home, ListVideo } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useAuth } from "@/context/AuthContext";
+import { useEffect, useState } from "react";
+import { getSubscriptionList } from "@/services/subscription.services";
 
 function Sidebar() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    try {
+      const getData = async () => {
+        setIsLoading(true);
+        //@ts-ignore
+        const response = await getSubscriptionList(user._id);
+        setSubscriptions(response);
+        setIsLoading(false);
+      };
+
+      getData();
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  }, [user]);
+
   return (
-    <div className="block border border-t-0 h-full ">
+    <div className="block border border-t-0 h-full">
       <div className="flex flex-col gap-2 p-2">
-        <Link to={"/"}>
-          <Button
-            className="flex items-center justify-start gap-4 w-full py-2 h-full"
-            variant={"ghost"}
-          >
-            <Home className="h-5 w-5" />
-            <span className="text-md  font-normal">Home</span>
-          </Button>
-        </Link>
-        <Button
-          className="flex items-center justify-start gap-4 w-full py-2 h-full"
-          variant={"ghost"}
-        >
-          <History className="h-5 w-5" />
-          <span className="text-md font-normal">History</span>
-        </Button>
-        <Button
-          className="flex items-center justify-start gap-4 w-full py-2 h-full"
-          variant={"ghost"}
-        >
-          <ListVideo className="h-5 w-5" />
-          <span className="text-md font-normal">Subscriptions</span>
-        </Button>
+        <NavLink to={"/"}>
+          {({ isActive }) => (
+            <Button
+              className={`flex items-center justify-start gap-4 w-full py-2 h-full}`}
+              variant={isActive ? "secondary" : "ghost"}
+            >
+              <Home className="h-5 w-5" />
+              <span className="text-md font-normal">Home</span>
+            </Button>
+          )}
+        </NavLink>
+
+        <NavLink to={"/history"}>
+          {({ isActive }) => (
+            <Button
+              className="flex items-center justify-start gap-4 w-full py-2 h-full"
+              variant={isActive ? "secondary" : "ghost"}
+            >
+              <History className="h-5 w-5" />
+              <span className="text-md font-normal">History</span>
+            </Button>
+          )}
+        </NavLink>
+
+        <NavLink to={"/subscriptions"}>
+          {({ isActive }) => (
+            <Button
+              className="flex items-center justify-start gap-4 w-full py-2 h-full"
+              variant={isActive ? "secondary" : "ghost"}
+            >
+              <ListVideo className="h-5 w-5" />
+              <span className="text-md font-normal">Subscripitons</span>
+            </Button>
+          )}
+        </NavLink>
       </div>
 
       <Separator />
@@ -41,55 +75,46 @@ function Sidebar() {
         <h4 className="text-base font-bold  px-2 py-2">Subscriptions</h4>
         {isAuthenticated && (
           <div className="flex flex-col gap-2">
-            <Button
-              className="flex items-center justify-start gap-4 w-full py-2 h-full"
-              variant={"ghost"}
-            >
-              <Avatar className="w-6 h-6">
-                <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1724997677/dbkh5o3bi8pm4va1zlhs.jpg" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <span className="text-md font-normal overflow-hidden text-ellipsis">
-                Azeemuddin Aziz
-              </span>
-            </Button>
+            {isLoading && subscriptions.length <= 0 && <div>Loading</div>}
 
-            <Button
-              className="flex items-center justify-start gap-4 w-full py-2 h-full"
-              variant={"ghost"}
-            >
-              <Avatar className="w-6 h-6">
-                <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1725021234/x70kcrftagfwm2sbrjxj.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <span className="text-md font-normal overflow-hidden text-ellipsis">
-                Rakazone Gaming
-              </span>
-            </Button>
-
-            <Button
-              className="flex items-center justify-start gap-4 w-full py-2 h-full"
-              variant={"ghost"}
-            >
-              <Avatar className="w-6 h-6">
-                <AvatarImage src="http://res.cloudinary.com/dkjj20tvd/image/upload/v1725066628/v4s31dpyoq9intfmqggg.webp" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <span className="text-md font-normal overflow-hidden text-ellipsis">
-                Shadman
-              </span>
-            </Button>
+            {!isLoading &&
+              subscriptions.length > 0 &&
+              subscriptions.map(({ channel }) => (
+                //@ts-ignore
+                <NavLink to={`/profile/${channel.username}`} key={channel._id}>
+                  <Button
+                    className="flex items-center justify-start gap-4 w-full py-2 h-full"
+                    variant={"ghost"}
+                  >
+                    <Avatar className="w-6 h-6">
+                      <AvatarImage
+                        src={
+                          //@ts-ignore
+                          channel.avatar
+                        }
+                      />
+                      <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <span className="text-md font-normal overflow-hidden text-ellipsis">
+                      {
+                        //@ts-ignore
+                        channel.username
+                      }
+                    </span>
+                  </Button>
+                </NavLink>
+              ))}
           </div>
         )}
 
         {!isAuthenticated && (
-          <Link to={"login/"}>
+          <NavLink to={"login/"}>
             <Button variant={"outline"}>
               <span className="text-md font-normal overflow-hidden text-ellipsis">
                 Login to view subscriptions
               </span>
             </Button>
-          </Link>
+          </NavLink>
         )}
       </div>
     </div>
