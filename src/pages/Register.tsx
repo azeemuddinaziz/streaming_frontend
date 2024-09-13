@@ -174,11 +174,11 @@ function Register() {
             </div>
 
             <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="avatar">CoverImage</Label>
+              <Label htmlFor="coverImage">CoverImage</Label>
               <Input
                 type="file"
-                id="avatar"
-                placeholder="avatar"
+                id="coverImage"
+                placeholder="coverImage"
                 accept="image/*"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   // @ts-ignore
