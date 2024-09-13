@@ -19,6 +19,7 @@ import Home from "./Home";
 import { useAuth } from "@/context/AuthContext";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Edit, Loader2 } from "lucide-react";
+import Tweet from "./Tweet";
 
 export default function Profile() {
   const { user } = useAuth();
@@ -234,8 +235,39 @@ export default function Profile() {
             <TabsContent value="videos">
               <Home />
             </TabsContent>
-            <TabsContent value="password">
-              Change your password here.
+
+            <TabsContent value="tweets">
+              <Tweet
+                userId={
+                  //@ts-ignore
+                  user._id
+                }
+                isOwner={
+                  //@ts-ignore
+                  user.username === username
+                }
+              />
+            </TabsContent>
+
+            <TabsContent value="about">
+              <Card>
+                <CardHeader>
+                  <span>
+                    Mail id:{" "}
+                    {
+                      //@ts-ignore
+                      user?.email
+                    }
+                  </span>
+                  <span>
+                    Created at:{" "}
+                    {
+                      //@ts-ignore
+                      user?.createdAt.split("T")[0]
+                    }
+                  </span>
+                </CardHeader>
+              </Card>
             </TabsContent>
           </Tabs>
         </CardContent>
