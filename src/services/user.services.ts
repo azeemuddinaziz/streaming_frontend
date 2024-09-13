@@ -151,6 +151,26 @@ const changeAvatar = async (avatar: File) => {
   }
 };
 
+const changePassword = async (oldPassword: string, newPassword: string) => {
+  try {
+    const { data } = await axios.post(
+      `http://localhost:8000/api/v1/users/changePassword`,
+      {
+        oldPassword,
+        newPassword,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error;
+  }
+};
+
 const logOutUser = async () => {
   try {
     const { data } = await axios.post(
@@ -177,4 +197,5 @@ export {
   refreshUserTokens,
   changeAvatar,
   changeCoverImage,
+  changePassword,
 };

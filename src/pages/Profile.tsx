@@ -193,9 +193,17 @@ export default function Profile() {
                   Subscribe
                 </Button>
               ) : !isEditMode ? (
-                <Button onClick={() => setIsEditMode(true)}>
-                  Edit Profile
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => navigate("/change-password")}
+                    variant={"destructive"}
+                  >
+                    Change Password
+                  </Button>
+                  <Button onClick={() => setIsEditMode(true)}>
+                    Edit Profile
+                  </Button>
+                </div>
               ) : (
                 isEditMode && (
                   <Button

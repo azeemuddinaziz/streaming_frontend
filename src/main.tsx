@@ -16,8 +16,9 @@ import Profile from "./pages/Profile.tsx";
 import Logout from "./pages/Logout.tsx";
 import Subscriptions from "./pages/Subscriptions.tsx";
 import SearchResults from "./pages/SearchResults.tsx";
-import Upload from "./pages/Upload.tsx";
+import Upload from "./pages/UploadVideo.tsx";
 import RefreshToken from "./pages/RefreshToken.tsx";
+import ChangePassword from "./pages/ChangePassword.tsx";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
       {
         path: "/upload",
         element: <Upload />,
+      },
+      {
+        path: "/change-password",
+        element: <ChangePassword />,
       },
     ],
   },
