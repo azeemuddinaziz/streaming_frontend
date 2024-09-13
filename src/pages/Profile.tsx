@@ -240,7 +240,7 @@ export default function Profile() {
               <Tweet
                 userId={
                   //@ts-ignore
-                  user._id
+                  profile._id
                 }
                 isOwner={
                   //@ts-ignore
@@ -253,14 +253,14 @@ export default function Profile() {
               <Card>
                 <CardHeader>
                   <span>
-                    Mail id:{" "}
+                    Mail id:
                     {
                       //@ts-ignore
                       user?.email
                     }
                   </span>
                   <span>
-                    Created at:{" "}
+                    Created at:
                     {
                       //@ts-ignore
                       user?.createdAt.split("T")[0]
