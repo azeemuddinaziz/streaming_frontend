@@ -20,6 +20,7 @@ import Upload from "./pages/UploadVideo.tsx";
 import RefreshToken from "./pages/RefreshToken.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
 import PlaylistView from "./pages/PlaylistView.tsx";
+import { Toaster } from "sonner";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,7 @@ createRoot(document.getElementById("root")!).render(
     <AuthProvider>
       <ThemeProvider>
         <RouterProvider router={router} />
+        <Toaster />
       </ThemeProvider>
     </AuthProvider>
   </StrictMode>
