@@ -82,10 +82,27 @@ const removeVideoFromPlaylist = async (playlistId: string, videoId: string) => {
   }
 };
 
+const addVideoToPlaylist = async (playlistId: string, videoId: string) => {
+  try {
+    const { data } = await axios.patch(
+      `http://localhost:8000/api/v1/playlist/addVideo/${playlistId}/${videoId}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
 export {
   createPlaylist,
   getUserPlaylist,
   getPlaylistById,
   updatePlaylistDetails,
   removeVideoFromPlaylist,
+  addVideoToPlaylist,
 };
