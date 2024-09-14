@@ -19,6 +19,7 @@ import SearchResults from "./pages/SearchResults.tsx";
 import Upload from "./pages/UploadVideo.tsx";
 import RefreshToken from "./pages/RefreshToken.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
+import PlaylistView from "./pages/PlaylistView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/results",
         element: <SearchResults />,
+      },
+      {
+        path: "/playlist/:username/:playlistId",
+        element: <PlaylistView />,
       },
     ],
   },

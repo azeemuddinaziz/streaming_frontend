@@ -20,6 +20,7 @@ import { useAuth } from "@/context/AuthContext";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Edit, Loader2 } from "lucide-react";
 import Tweet from "./Tweet";
+import Playlist from "./Playlist";
 
 export default function Profile() {
   const { user } = useAuth();
@@ -225,6 +226,9 @@ export default function Profile() {
               <TabsTrigger className="w-full" value="videos">
                 Videos
               </TabsTrigger>
+              <TabsTrigger className="w-full" value="playlist">
+                Playlist
+              </TabsTrigger>
               <TabsTrigger className="w-full" value="tweets">
                 Tweets
               </TabsTrigger>
@@ -234,6 +238,16 @@ export default function Profile() {
             </TabsList>
             <TabsContent value="videos">
               <Home />
+            </TabsContent>
+
+            <TabsContent value="playlist">
+              <Playlist
+                //@ts-ignore
+                userId={profile._id}
+                username={username}
+                //@ts-ignore
+                isOwner={user.username === username}
+              />
             </TabsContent>
 
             <TabsContent value="tweets">
@@ -256,14 +270,14 @@ export default function Profile() {
                     Mail id:
                     {
                       //@ts-ignore
-                      user?.email
+                      profile?.email
                     }
                   </span>
                   <span>
                     Created at:
                     {
                       //@ts-ignore
-                      user?.createdAt.split("T")[0]
+                      profile?.createdAt.split("T")[0]
                     }
                   </span>
                 </CardHeader>
