@@ -60,8 +60,11 @@ function VideoTile({
 
   return (
     <>
-      <Card className="overflow-hidden cursor-pointer">
-        <CardContent className="p-0 w-full" onClick={handleCardClick}>
+      <Card
+        onClick={handleCardClick}
+        className="overflow-hidden cursor-pointer"
+      >
+        <CardContent className="p-0 w-full">
           <img
             alt="Video thumbnail"
             className="aspect-video object-cover w-full"
@@ -76,7 +79,7 @@ function VideoTile({
             <Link
               to={`/profile/${username}`}
               className="flex items-center justify-center gap-4"
-              onClick={(e) => e.stopPropagation()} // Prevent click event from bubbling to the card
+              onClick={(e) => e.stopPropagation()}
             >
               <Avatar className="w-6 h-6">
                 <AvatarImage src={avatar} />
@@ -97,7 +100,10 @@ function VideoTile({
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mt-[-8px] z-999">
               <DropdownMenuItem
-                onClick={() => navigate(`/profile/${username}`)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/profile/${username}`);
+                }}
               >
                 View profile
               </DropdownMenuItem>
@@ -126,10 +132,11 @@ function VideoTile({
                                 return (
                                   <DropdownMenuItem
                                     key={index}
-                                    onClick={() =>
+                                    onClick={(e) => {
+                                      e.stopPropagation();
                                       //@ts-ignore
-                                      addPlaylistVideo(playlist._id, id)
-                                    }
+                                      addPlaylistVideo(playlist._id, id);
+                                    }}
                                   >
                                     <span>
                                       {
