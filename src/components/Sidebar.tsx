@@ -77,6 +77,12 @@ function Sidebar() {
           <div className="flex flex-col gap-2">
             {isLoading && subscriptions.length <= 0 && <div>Loading</div>}
 
+            {subscriptions.length === 0 && (
+              <Button disabled variant={"outline"}>
+                You have no subscriptions yet.
+              </Button>
+            )}
+
             {!isLoading &&
               subscriptions.length > 0 &&
               subscriptions.map(({ channel }) => (
