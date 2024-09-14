@@ -36,11 +36,11 @@ function Header({ isSimple }: HeaderPropsType) {
       <Link to={"/"}>
         <div className="flex items-center gap-2">
           {theme == "dark" ? (
-            <img src={darkLogo} alt="logo of videoTube" width={30} />
+            <img src={darkLogo} alt="logo of streamsouk" width={30} />
           ) : (
-            <img src={lightLogo} alt="logo of videoTube" width={30} />
+            <img src={lightLogo} alt="logo of streamsouk" width={30} />
           )}
-          <span className="text-xl font-bold">AzeemTube</span>
+          <span className="text-xl font-bold">StreamSouk</span>
         </div>
       </Link>
 

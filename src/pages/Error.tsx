@@ -18,7 +18,7 @@ export default function Error() {
       </p>
 
       <Button>
-        <a href="/">Go back to AzeemTube</a>{" "}
+        <a href="/">Go back to StreamSouk</a>{" "}
       </Button>
     </div>
   );
