@@ -98,6 +98,21 @@ const addVideoToPlaylist = async (playlistId: string, videoId: string) => {
   }
 };
 
+const deletePlaylist = async (playlistId: string) => {
+  try {
+    const { data } = await axios.delete(
+      `http://localhost:8000/api/v1/playlist/deletePlaylist/${playlistId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return data.data;
+  } catch (error) {
+    //@ts-ignore
+    return error.status;
+  }
+};
+
 export {
   createPlaylist,
   getUserPlaylist,
@@ -105,4 +120,5 @@ export {
   updatePlaylistDetails,
   removeVideoFromPlaylist,
   addVideoToPlaylist,
+  deletePlaylist,
 };

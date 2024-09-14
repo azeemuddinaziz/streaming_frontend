@@ -18,11 +18,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { createPlaylist, getUserPlaylist } from "@/services/playlist.services";
+import {
+  createPlaylist,
+  deletePlaylist,
+  getUserPlaylist,
+} from "@/services/playlist.services";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { AlertCircle, CirclePlus, ListVideo, Loader2 } from "lucide-react";
+import {
+  AlertCircle,
+  CirclePlus,
+  ListVideo,
+  Loader2,
+  Trash2,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 type Props = {
   userId?: string;
@@ -89,6 +100,17 @@ export default function Playlist({ userId, isOwner, username }: Props) {
     navigate(`/playlist/${username}/${playlistId}`);
   };
 
+  const handleRemovePlaylist = async (playlistId: string) => {
+    try {
+      setError(null);
+      await deletePlaylist(playlistId);
+      toast("Playlist deleted successfully, please refresh page.");
+    } catch (error) {
+      //@ts-ignore
+      setError(error);
+      return error;
+    }
+  };
   return (
     <>
       {isOwner && (
@@ -172,31 +194,44 @@ export default function Playlist({ userId, isOwner, username }: Props) {
         </Dialog>
       )}
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         {playlistArray.map((playlist, index) => {
           return (
             <Card
               key={index}
-              className="px-4 py-6 flex items-center cursor-pointer hover:bg-primary-foreground"
+              className="px-4 py-6 cursor-pointer hover:bg-primary-foreground"
               //@ts-ignore
               onClick={() => handleOpenPlaylist(username, playlist._id)}
             >
-              <CardHeader className="flex flex-row items-center justify-evenly gap-4 p-0">
-                <ListVideo />
-                <div>
-                  <CardTitle>
-                    {
-                      //@ts-ignore
-                      playlist.name
-                    }
-                  </CardTitle>
-                  <CardDescription>
-                    {
-                      //@ts-ignore
-                      playlist.description
-                    }
-                  </CardDescription>
+              <CardHeader className="flex flex-row items-center justify-between gap-4 p-0">
+                <div className="flex items-center gap-4 ">
+                  <ListVideo className="w-6 h-6" />
+                  <div>
+                    <CardTitle>
+                      {
+                        //@ts-ignore
+                        playlist.name
+                      }
+                    </CardTitle>
+                    <CardDescription>
+                      {
+                        //@ts-ignore
+                        playlist.description
+                      }
+                    </CardDescription>
+                  </div>
                 </div>
+                <Button
+                  variant={"destructive"}
+                  size={"icon"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    //@ts-ignore
+                    handleRemovePlaylist(playlist._id);
+                  }}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </CardHeader>
             </Card>
           );
