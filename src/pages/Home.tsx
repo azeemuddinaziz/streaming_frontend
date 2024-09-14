@@ -1,5 +1,7 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import VideoTile from "@/components/VideoTile.tsx";
+import { useAuth } from "@/context/AuthContext";
+import { getUserPlaylist } from "@/services/playlist.services";
 import { getAllVideos } from "@/services/video.services.ts";
 import { useEffect, useState } from "react";
 
@@ -18,11 +20,18 @@ type Props = {
 function Home({ className }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [error, setError] = useState();
+  const [userPlaylist, setUserPlaylist] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     try {
       //@ts-ignore
       setError(null);
+      (async () => {
+        //@ts-ignore
+        setUserPlaylist(await getUserPlaylist(user._id));
+      })();
+
       (async () => {
         setVideos(await getAllVideos());
       })();
@@ -30,11 +39,11 @@ function Home({ className }: Props) {
       //@ts-ignore
       setError(error);
     }
-  }, []);
+  }, [user]);
 
   return (
     <ScrollArea>
-      <div className={`grid md:grid-cols-4 gap-6 p-4 w-full ${className}`}>
+      <div className={`grid md:grid-cols-4 gap-4 p-4 w-full ${className}`}>
         {videos.length > 0 ? (
           videos.map((video) => {
             return (
@@ -48,6 +57,7 @@ function Home({ className }: Props) {
                 avatar={video.ownerDetails.avatar}
                 views={video.views}
                 id={video._id}
+                playlistArray={userPlaylist}
               />
             );
           })
