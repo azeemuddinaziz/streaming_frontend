@@ -21,11 +21,13 @@ function Home({ className }: Props) {
 
   useEffect(() => {
     try {
+      //@ts-ignore
       setError(null);
       (async () => {
         setVideos(await getAllVideos());
       })();
     } catch (error) {
+      //@ts-ignore
       setError(error);
     }
   }, []);
@@ -52,7 +54,7 @@ function Home({ className }: Props) {
         ) : (
           <div>
             <div className="text-gray-500">
-              Something went wrong while loading videos.
+              Something went wrong while loading videos. {error}
             </div>
           </div>
         )}
