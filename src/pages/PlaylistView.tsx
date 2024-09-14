@@ -211,7 +211,7 @@ function PlaylistView() {
         </CardDescription>
       </CardHeader>
 
-      <div className="grid md:grid-cols-4 gap-6 px-6 w-full ">
+      <div className="grid grid-cols-4 gap-6 px-6 w-full ">
         {
           //@ts-ignore
           playlistData?.videos?.length > 0 ? (
@@ -219,7 +219,7 @@ function PlaylistView() {
             playlistData?.videos?.map((video, index) => {
               console.log(video);
               return (
-                <div className="relative">
+                <div className="relative h-fit">
                   {isOwner && (
                     <Button
                       className="absolute bottom-4 right-4"
