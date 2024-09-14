@@ -152,37 +152,38 @@ function PlaylistView() {
               />
             </div>
           )}
-          {!isEditMode ? (
-            <Button
-              variant={"ghost"}
-              size={"icon"}
-              onClick={() => {
-                setIsEditMode(true);
-              }}
-            >
-              <Edit2Icon className="h-4 w-4" />
-            </Button>
-          ) : (
-            <>
+          {isOwner &&
+            (!isEditMode ? (
               <Button
-                variant={"outline"}
-                size={"icon"}
-                onClick={() => handleUpdate()}
-              >
-                <CheckCheck className="h-4 w-4" />
-              </Button>
-
-              <Button
-                variant={"destructive"}
+                variant={"ghost"}
                 size={"icon"}
                 onClick={() => {
-                  setIsEditMode(false);
+                  setIsEditMode(true);
                 }}
               >
-                <X className="h-4 w-4" />
+                <Edit2Icon className="h-4 w-4" />
               </Button>
-            </>
-          )}
+            ) : (
+              <>
+                <Button
+                  variant={"outline"}
+                  size={"icon"}
+                  onClick={() => handleUpdate()}
+                >
+                  <CheckCheck className="h-4 w-4" />
+                </Button>
+
+                <Button
+                  variant={"destructive"}
+                  size={"icon"}
+                  onClick={() => {
+                    setIsEditMode(false);
+                  }}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </>
+            ))}
         </CardTitle>
         <CardDescription className="flex items-center gap-1">
           <span>Description: </span>
