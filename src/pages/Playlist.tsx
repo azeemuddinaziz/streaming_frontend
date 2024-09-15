@@ -88,7 +88,6 @@ export default function Playlist({ userId, isOwner, username }: Props) {
         navigate(0);
       }, 5000);
     } catch (error) {
-      console.log("here");
       setIsLoading(false);
       //@ts-ignore
       setError(error);

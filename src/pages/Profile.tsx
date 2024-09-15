@@ -21,6 +21,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Edit, Loader2 } from "lucide-react";
 import Tweet from "./Tweet";
 import Playlist from "./Playlist";
+import { toast } from "sonner";
 
 export default function Profile() {
   const { user } = useAuth();
@@ -81,7 +82,8 @@ export default function Profile() {
       navigate(0);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      //@ts-ignore
+      toast("Error editing: ", error);
     }
   };
 

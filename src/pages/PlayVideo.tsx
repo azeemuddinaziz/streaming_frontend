@@ -34,6 +34,7 @@ function PlayVideo() {
   const [commentContent, setCommentContent] = useState("");
   const { user } = useAuth();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [showFull, setShowFull] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -192,12 +193,33 @@ function PlayVideo() {
                 }
                 <span> • Views</span>
               </span>
-              <span className="text-sm">
-                {
-                  //@ts-ignore
-                  video.description
-                }
+              <span
+                className={`text-sm truncate  ${
+                  showFull ? "h-full" : "max-h-40"
+                }`}
+              >
+                <pre>
+                  {
+                    //@ts-ignore
+                    video.description
+                  }
+                </pre>
               </span>
+              {!showFull ? (
+                <span
+                  className="hover:underline cursor-pointer pt-4"
+                  onClick={() => setShowFull(true)}
+                >
+                  Show more
+                </span>
+              ) : (
+                <span
+                  className="hover:underline cursor-pointer pt-4"
+                  onClick={() => setShowFull(false)}
+                >
+                  Show less
+                </span>
+              )}
             </div>
           </CardContent>
 

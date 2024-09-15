@@ -48,7 +48,6 @@ const uploadVideo = async (
         withCredentials: true,
       }
     );
-    console.log(data);
 
     return data.statusCode.data;
   } catch (error) {

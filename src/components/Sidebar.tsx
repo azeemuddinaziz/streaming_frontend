@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { getSubscriptionList } from "@/services/subscription.services";
+import { toast } from "sonner";
 
 function Sidebar() {
   const { isAuthenticated, user } = useAuth();
@@ -25,7 +26,8 @@ function Sidebar() {
       getData();
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      //@ts-ignore
+      toast("Error in sidebar data", error);
     }
   }, [user]);
 

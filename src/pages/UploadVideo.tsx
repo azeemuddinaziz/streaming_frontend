@@ -15,6 +15,7 @@ import { AlertCircle, Loader2, Upload, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Link, useNavigate } from "react-router-dom";
 import { uploadVideo } from "@/services/video.services";
+import { toast } from "sonner";
 
 export default function UploadVideo() {
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -25,8 +26,6 @@ export default function UploadVideo() {
   const [isUploaded, setIsUploaded] = useState(false);
   const [isLoading, SetIsLoading] = useState(false);
   const navigate = useNavigate();
-
-  console.log(isUploaded);
 
   const handleVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     //@ts-ignore
@@ -74,16 +73,15 @@ export default function UploadVideo() {
       const { title, description, video, thumbnail } = formData;
 
       const data = await uploadVideo(title, description, video, thumbnail);
-      if (!data) console.log("Server did not respond.");
-
-      console.log("here");
+      if (!data) throw "Server did not respond.";
 
       setIsUploaded(true);
       SetIsLoading(false);
     } catch (error) {
       setIsUploaded(false);
       SetIsLoading(false);
-      return error;
+      //@ts-ignore
+      toast("Error: ", error);
     }
   };
 

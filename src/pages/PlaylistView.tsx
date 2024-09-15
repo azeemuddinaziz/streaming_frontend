@@ -217,7 +217,6 @@ function PlaylistView() {
           playlistData?.videos?.length > 0 ? (
             //@ts-ignore
             playlistData?.videos?.map((video, index) => {
-              console.log(video);
               return (
                 <div className="relative h-fit">
                   {isOwner && (

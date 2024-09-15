@@ -1,6 +1,7 @@
 import { refreshUserTokens } from "@/services/user.services";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function RefreshToken() {
   const [refreshSuccess, setRefreshSuccess] = useState(false);
@@ -16,7 +17,8 @@ function RefreshToken() {
       refresh();
     } catch (error) {
       setRefreshSuccess(false);
-      console.log(error);
+      //@ts-ignore
+      toast("Error while refreshing tokens: ", error);
     }
   }, []);
 

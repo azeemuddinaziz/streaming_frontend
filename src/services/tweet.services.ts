@@ -52,7 +52,6 @@ const deleteTweet = async (tweetId: string) => {
 };
 
 const updateTweet = async (content: string, tweetId: string) => {
-  console.log(tweetId);
   try {
     const { data } = await axios.patch(
       `http://localhost:8000/api/v1/tweet/update/${tweetId}`,

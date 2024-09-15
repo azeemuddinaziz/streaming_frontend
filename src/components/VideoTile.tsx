@@ -51,7 +51,6 @@ function VideoTile({
 
       toast("Video added to playlist.");
     } catch (error) {
-      console.log(error);
       //@ts-ignore
       toast("Error:", error);
       return error;

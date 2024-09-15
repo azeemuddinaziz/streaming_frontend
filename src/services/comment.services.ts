@@ -26,7 +26,6 @@ const getVideoComments = async (videoId: string) => {
         withCredentials: true,
       }
     );
-    console.log(data.data.docs);
     return data.data.docs;
   } catch (error) {
     //@ts-ignore
