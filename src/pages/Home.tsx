@@ -15,9 +15,10 @@ type Video = {
 
 type Props = {
   className?: string;
+  query?: string;
 };
 
-function Home({ className }: Props) {
+function Home({ className, query }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [error, setError] = useState();
   const [userPlaylist, setUserPlaylist] = useState([]);
@@ -33,18 +34,26 @@ function Home({ className }: Props) {
       })();
 
       (async () => {
-        setVideos(await getAllVideos());
+        setVideos(await getAllVideos(query || ""));
       })();
     } catch (error) {
       //@ts-ignore
       setError(error);
     }
-  }, [user]);
+  }, [user, query]);
+
+  if (error) {
+    return <div>Error occured while loading videos: {error}</div>;
+  }
 
   return (
     <ScrollArea>
       <div className={`grid md:grid-cols-4 gap-4 p-4 w-full ${className}`}>
-        {videos.length > 0 ? (
+        {videos.length === 0 && (
+          <div className="text-muted-foreground">No videos found!</div>
+        )}
+
+        {videos.length > 0 &&
           videos.map((video) => {
             return (
               <VideoTile
@@ -60,14 +69,7 @@ function Home({ className }: Props) {
                 playlistArray={userPlaylist}
               />
             );
-          })
-        ) : (
-          <div>
-            <div className="text-gray-500">
-              Something went wrong while loading videos. {error}
-            </div>
-          </div>
-        )}
+          })}
       </div>
     </ScrollArea>
   );
