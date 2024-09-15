@@ -112,7 +112,7 @@ function PlayVideo() {
             onClick={handleToggleLike}
           >
             <ThumbsUp className="mr-2 h-4 w-4" />
-            Like Video
+            {!isLiked ? "Like Video" : "Remove Like"}
           </Button>
         </CardHeader>
         <CardContent>
