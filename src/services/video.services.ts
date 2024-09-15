@@ -15,7 +15,10 @@ const getAllVideos = async (query: String = "") => {
 const getVideoById = async (videoId: String) => {
   try {
     const { data } = await axios.get(
-      `http://localhost:8000/api/v1/video/search/${videoId}`
+      `http://localhost:8000/api/v1/video/search/${videoId}`,
+      {
+        withCredentials: true,
+      }
     );
     return data.data.video;
   } catch (error) {

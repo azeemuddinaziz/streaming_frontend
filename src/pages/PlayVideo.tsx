@@ -1,6 +1,6 @@
 import { getVideoById } from "@/services/video.services";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,31 +10,32 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ThumbsUp,
-  ThumbsDown,
-  Share2,
-  Download,
-  MoreHorizontal,
-} from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { ThumbsUp } from "lucide-react";
 import Home from "./Home";
+import { toast } from "sonner";
+import { toggleLikeVideo } from "@/services/like.services";
 
 function PlayVideo() {
   const [video, setVideo] = useState({});
   const { videoId } = useParams();
   const [loading, setLoading] = useState(true);
   const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
-    if (isDisliked) setIsDisliked(false);
-  };
-
-  const handleDislike = () => {
-    setIsDisliked(!isDisliked);
-    if (isLiked) setIsLiked(false);
+  const handleToggleLike = () => {
+    try {
+      (async () => {
+        //@ts-ignore
+        await toggleLikeVideo(videoId);
+        setIsLiked(!isLiked);
+        isLiked
+          ? toast("Like removed from the video.")
+          : toast("Like added to the video.");
+      })();
+    } catch (error) {
+      setIsLiked(isLiked);
+      //@ts-ignore
+      toast("Error: " + error);
+    }
   };
 
   useEffect(() => {
@@ -42,9 +43,11 @@ function PlayVideo() {
       setLoading(true);
       //@ts-ignore
       setVideo(await getVideoById(videoId));
+      //@ts-ignore
+      setIsLiked(video.isLiked);
     })();
     setLoading(false);
-  }, []);
+  }, [isLiked]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -65,71 +68,54 @@ function PlayVideo() {
             ></video>
           </div>
         </CardContent>
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">
-            {
-              //@ts-ignore
-              video.title
-            }
-          </CardTitle>
-          <CardDescription className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Avatar className="w-8 h-8">
-                <AvatarImage
-                  src={
-                    //@ts-ignore
-                    video.owner?.avatar
-                  }
-                  alt="Channel avatar"
-                />
-                <AvatarFallback>CH</AvatarFallback>
-              </Avatar>
-              <div className="flex gap-2  items-center">
-                <span className="text-sm font-medium">
-                  {
+        <CardHeader className="flex flex-row justify-between items-center">
+          <div className="flex flex-col gap-2">
+            <CardTitle className="flex  flex-col gap-2 text-2xl font-bold">
+              {
+                //@ts-ignore
+                video.title
+              }
+            </CardTitle>
+            <CardDescription className="flex flex-row items-center justify-between">
+              <div className="flex gap-2 items-center">
+                <Avatar className="w-8 h-8">
+                  <AvatarImage
+                    src={
+                      //@ts-ignore
+                      video.owner?.avatar
+                    }
+                    alt="Channel avatar"
+                  />
+                  <AvatarFallback>CH</AvatarFallback>
+                </Avatar>
+                <Link
+                  className="hover:text-secondary-foreground"
+                  to={`/profile/${
                     //@ts-ignore
                     video.owner?.username
-                  }
-                </span>
-                <Separator orientation="vertical" />
-                <span className="text-xs text-muted-foreground">
-                  1.2M subscribers
-                </span>
+                  }`}
+                >
+                  <span className="text-sm font-medium">
+                    {
+                      //@ts-ignore
+                      video.owner?.username
+                    }
+                  </span>
+                </Link>
               </div>
-            </div>
-            <Button variant="secondary">Subscribe</Button>
-          </CardDescription>
+            </CardDescription>
+          </div>
+
+          <Button
+            variant={isLiked ? "default" : "secondary"}
+            size="sm"
+            onClick={handleToggleLike}
+          >
+            <ThumbsUp className="mr-2 h-4 w-4" />
+            Like Video
+          </Button>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center space-x-2 mb-4">
-            <Button
-              variant={isLiked ? "default" : "secondary"}
-              size="sm"
-              onClick={handleLike}
-            >
-              <ThumbsUp className="mr-2 h-4 w-4" />
-              Like
-            </Button>
-            <Button
-              variant={isDisliked ? "default" : "secondary"}
-              size="sm"
-              onClick={handleDislike}
-            >
-              <ThumbsDown className="mr-2 h-4 w-4" />
-              Dislike
-            </Button>
-            <Button variant="secondary" size="sm">
-              <Share2 className="mr-2 h-4 w-4" />
-              Share
-            </Button>
-            <Button variant="secondary" size="sm">
-              <Download className="mr-2 h-4 w-4" />
-              Download
-            </Button>
-            <Button variant="secondary" size="sm">
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </div>
           <div className="flex flex-col bg-muted p-4 rounded-lg">
             <span className="text-sm font-medium mb-2">
               {
