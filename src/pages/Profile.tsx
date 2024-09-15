@@ -95,11 +95,11 @@ export default function Profile() {
     );
 
   return (
-    <ScrollArea className="w-full">
-      <Card>
-        <CardHeader className="flex flex-col gap-4">
+    <ScrollArea>
+      <Card className="p-0">
+        <CardHeader className="flex flex-col gap-4 p-0 md:p-4">
           <div
-            className={`h-48 ${
+            className={`h-fit md:h-48 ${
               isEditMode && "relative flex items-center justify-center"
             }`}
           >
@@ -128,9 +128,9 @@ export default function Profile() {
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex justify-between items-center px-4">
-            <div className="flex gap-4 items-center">
-              <div className="relative w-1/6 rounded-full overflow-hidden flex items-center justify-center">
+          <div className="flex flex-col md:flex-row justify-between items-center px-4 py-2 md:py-0 gap-4 md:gap-0">
+            <div className="flex gap-4 items-center justify-between">
+              <div className="relative w-full md:w-1/6 rounded-full overflow-hidden flex items-center justify-center">
                 {isEditMode && (
                   <div className="absolute w-full h-full rounded-full bg-black/80 flex items-center justify-center">
                     <Button size={"icon"}>
@@ -158,21 +158,21 @@ export default function Profile() {
                   className="overflow-hidden"
                 />
               </div>
-              <div className="flex flex-col gap-2">
-                <CardTitle>
+              <div className="flex flex-col gap-2 w-full">
+                <CardTitle className="text-lg">
                   {
                     //@ts-ignore
                     profile.fullname
                   }
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-sm">
                   @
                   {
                     //@ts-ignore
                     profile.username
                   }
                 </CardDescription>
-                <CardDescription className="text-md">
+                <CardDescription className="text-sm">
                   {
                     //@ts-ignore
                     profile.subscribersCount
@@ -188,6 +188,7 @@ export default function Profile() {
                 <Button
                   onClick={() => handleSubscribeClick()}
                   variant={"secondary"}
+                  className="w-full md:w-fit"
                 >
                   Subscribed
                 </Button>
@@ -222,9 +223,9 @@ export default function Profile() {
           </div>
         </CardHeader>
 
-        <CardContent className="w-full">
+        <CardContent className="w-full p-0 md:p-4">
           <Tabs defaultValue="videos" className="w-full">
-            <TabsList className="w-full">
+            <TabsList className="w-full rounded-none">
               <TabsTrigger className="w-full" value="videos">
                 Videos
               </TabsTrigger>

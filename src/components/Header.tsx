@@ -36,7 +36,7 @@ function Header({ isSimple }: HeaderPropsType) {
   };
 
   return (
-    <div className="flex items-center justify-between px-10 py-4 border-b ">
+    <div className="flex items-center justify-between px-4 py-2 md:px-10 md:py-4 border-b ">
       <Link to={"/"}>
         <div className="flex items-center gap-2">
           {theme == "dark" ? (
@@ -48,7 +48,7 @@ function Header({ isSimple }: HeaderPropsType) {
         </div>
       </Link>
 
-      <div className="flex w-full max-w-sm items-center space-x-2">
+      <div className="md:flex w-full max-w-sm items-center space-x-2 hidden">
         <Input
           type="text"
           placeholder="Search"

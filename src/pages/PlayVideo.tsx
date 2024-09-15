@@ -123,7 +123,7 @@ function PlayVideo() {
 
   return (
     <ScrollArea className="overflow-y-scroll">
-      <div className="grid grid-cols-[minmax(900px,_1fr)_280px]  w-full overflow-hidden">
+      <div className="md:grid grid-cols-[minmax(900px,_1fr)_280px]  w-full overflow-hidden">
         <Card className="w-full">
           <CardContent className="p-0">
             <div className="aspect-video w-full bg-black">
@@ -137,9 +137,9 @@ function PlayVideo() {
               ></video>
             </div>
           </CardContent>
-          <CardHeader className="flex flex-row justify-between items-center">
+          <CardHeader className="flex md:flex-row md:justify-between md:items-center gap-2">
             <div className="flex flex-col gap-2">
-              <CardTitle className="flex  flex-col gap-2 text-2xl font-bold">
+              <CardTitle className="flex flex-col gap-2 text-md md:text-2xl font-bold">
                 {
                   //@ts-ignore
                   video.title
@@ -179,9 +179,10 @@ function PlayVideo() {
               variant={isLiked ? "default" : "secondary"}
               size="sm"
               onClick={handleToggleLike}
+              className="flex gap-2 items-center"
             >
-              <ThumbsUp className="mr-2 h-4 w-4" />
-              {!isLiked ? "Like Video" : "Remove Like"}
+              <ThumbsUp className="md:mr-2 h-4 w-4" />
+              <span>{!isLiked ? "Like Video" : "Remove Like"}</span>
             </Button>
           </CardHeader>
           <CardContent>
@@ -371,7 +372,7 @@ function PlayVideo() {
             </CardContent>
           </Card>
         </Card>
-        <Home className={"md:grid-cols-none overflow-hidden"} />
+        <Home className={"hidden md:grid md:grid-cols-none overflow-hidden"} />
       </div>
     </ScrollArea>
   );

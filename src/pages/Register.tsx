@@ -105,7 +105,10 @@ function Register() {
         </CardHeader>
 
         <CardContent>
-          <form className="grid grid-cols-2 gap-4" onSubmit={handleFormSubmit}>
+          <form
+            className="flex flex-col sm:grid gap-4"
+            onSubmit={handleFormSubmit}
+          >
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="fullname">Full Name</Label>
               <Input
@@ -208,7 +211,9 @@ function Register() {
         </CardContent>
 
         <CardFooter className="flex items-center gap-1">
-          <span>Already have an account?</span>
+          <span className="text-muted-foreground">
+            Already have an account?
+          </span>
           <Link to="/login" className="hover:underline hover:text-ring">
             Login here
           </Link>

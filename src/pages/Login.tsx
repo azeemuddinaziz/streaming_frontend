@@ -150,8 +150,8 @@ function Login() {
         </CardContent>
 
         <CardFooter className="flex items-center gap-1">
-          <span>Do not have an account?</span>
-          <Link to="/register" className="hover:underline hover:text-ring">
+          <span className="text-muted-foreground">Do not have an account?</span>
+          <Link to="/register" className="underline hover:text-ring">
             Register here
           </Link>
         </CardFooter>
