@@ -12,13 +12,13 @@ import {
   changeCoverImage,
   getChannelByChannelName,
 } from "@/services/user.services";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { toggleSubscription } from "@/services/subscription.services";
 import Home from "./Home";
 import { useAuth } from "@/context/AuthContext";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Edit, Loader2 } from "lucide-react";
+import { Edit, Loader2, PlusCircle } from "lucide-react";
 import Tweet from "./Tweet";
 import Playlist from "./Playlist";
 import { toast } from "sonner";
@@ -239,6 +239,20 @@ export default function Profile() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="videos">
+              {
+                //@ts-ignore
+                user.username === profile.username && (
+                  <Link to={"/upload"}>
+                    <Button
+                      variant={"default"}
+                      className="flex items-center gap-2"
+                    >
+                      <PlusCircle className="w-4 h-4" />
+                      Upload Video
+                    </Button>
+                  </Link>
+                )
+              }
               <Home
                 query={
                   //@ts-ignore

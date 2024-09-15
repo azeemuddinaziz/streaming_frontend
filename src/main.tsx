@@ -33,10 +33,6 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/search/:videoId",
-        element: <PlayVideo />,
-      },
-      {
         path: "/results",
         element: <SearchResults />,
       },
@@ -79,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "/history",
         element: <div>History</div>,
+      },
+      {
+        path: "/search/:videoId",
+        element: <PlayVideo />,
       },
       {
         path: "/logout",
