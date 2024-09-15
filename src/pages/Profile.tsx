@@ -237,7 +237,12 @@ export default function Profile() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="videos">
-              <Home />
+              <Home
+                query={
+                  //@ts-ignore
+                  profile._id
+                }
+              />
             </TabsContent>
 
             <TabsContent value="playlist">
