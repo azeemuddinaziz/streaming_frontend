@@ -28,6 +28,10 @@ function Header({ isSimple }: HeaderPropsType) {
   const navigate = useNavigate();
 
   const handleSearch = () => {
+    if (search === undefined) {
+      navigate(`/`);
+      return;
+    }
     navigate(`/results?query=${search}`);
   };
 
