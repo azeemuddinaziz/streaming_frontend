@@ -63,7 +63,9 @@ function Home({ className, query }: Props) {
 
   return (
     <ScrollArea>
-      <div className={`grid md:grid-cols-4 gap-4 p-4 w-full ${className}`}>
+      <div
+        className={`grid gird-col-1 md:grid-cols-4 gap-4 p-4 w-full ${className}`}
+      >
         {!isLoading && videos.length === 0 && (
           <div className="text-muted-foreground">No videos found!</div>
         )}

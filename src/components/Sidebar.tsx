@@ -63,7 +63,7 @@ function Sidebar() {
         <NavLink to={"/subscriptions"}>
           {({ isActive }) => (
             <Button
-              className="flex items-center justify-start gap-4 w-fitw-full py-2 h-full"
+              className="flex items-center justify-start gap-4 w-full py-2 h-full"
               variant={isActive ? "secondary" : "ghost"}
             >
               <ListVideo className="h-5 w-5" />
