@@ -130,7 +130,7 @@ export default function Profile() {
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center px-4 py-2 md:py-0 gap-4 md:gap-0">
             <div className="flex gap-4 items-center justify-between">
-              <div className="relative w-full md:w-1/6 rounded-full overflow-hidden flex items-center justify-center">
+              <div className="relative w-1/4 md:w-1/6 rounded-full overflow-hidden flex items-center justify-center">
                 {isEditMode && (
                   <div className="absolute w-full h-full rounded-full bg-black/80 flex items-center justify-center">
                     <Button size={"icon"}>
