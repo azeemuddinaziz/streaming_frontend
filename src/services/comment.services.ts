@@ -3,7 +3,7 @@ import axios from "axios";
 const addCommentToVideo = async (videoId: string, content: string) => {
   try {
     const { data } = await axios.post(
-      `http://localhost:8000/api/v1/comment/add/${videoId}`,
+      `/comment/add/${videoId}`,
       {
         content,
       },
@@ -20,12 +20,9 @@ const addCommentToVideo = async (videoId: string, content: string) => {
 
 const getVideoComments = async (videoId: string) => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:8000/api/v1/comment/getVideoComments/${videoId}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await axios.get(`/comment/getVideoComments/${videoId}`, {
+      withCredentials: true,
+    });
     return data.data.docs;
   } catch (error) {
     //@ts-ignore
@@ -36,7 +33,7 @@ const getVideoComments = async (videoId: string) => {
 const updateComment = async (commentId: string, content: string) => {
   try {
     const { data } = await axios.patch(
-      `http://localhost:8000/api/v1/comment/update/${commentId}`,
+      `/comment/update/${commentId}`,
       {
         content,
       },
@@ -53,12 +50,9 @@ const updateComment = async (commentId: string, content: string) => {
 
 const deleteComment = async (commentId: string) => {
   try {
-    const { data } = await axios.delete(
-      `http://localhost:8000/api/v1/comment/delete/${commentId}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await axios.delete(`/comment/delete/${commentId}`, {
+      withCredentials: true,
+    });
     return data.data;
   } catch (error) {
     //@ts-ignore

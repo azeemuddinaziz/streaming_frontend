@@ -21,6 +21,9 @@ import RefreshToken from "./pages/RefreshToken.tsx";
 import ChangePassword from "./pages/ChangePassword.tsx";
 import PlaylistView from "./pages/PlaylistView.tsx";
 import { Toaster } from "sonner";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:8000/api/v1";
 
 const router = createBrowserRouter([
   {

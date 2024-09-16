@@ -3,7 +3,7 @@ import axios from "axios";
 const toggleLikeVideo = async (videoId: string) => {
   try {
     const { data } = await axios.post(
-      `http://localhost:8000/api/v1/like/toggleLikeVideo/${videoId}`,
+      `/like/toggleLikeVideo/${videoId}`,
       {},
       {
         withCredentials: true,
@@ -18,12 +18,9 @@ const toggleLikeVideo = async (videoId: string) => {
 
 const getLikedVideos = async () => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:8000/api/v1/like/getLikedVideos/`,
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await axios.get(`/like/getLikedVideos/`, {
+      withCredentials: true,
+    });
     return data.data;
   } catch (error) {
     //@ts-ignore

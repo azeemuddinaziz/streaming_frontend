@@ -3,7 +3,7 @@ import axios from "axios";
 const createPlaylist = async (name: string, description: string) => {
   try {
     const { data } = await axios.post(
-      `http://localhost:8000/api/v1/playlist/create`,
+      `/playlist/create`,
       {
         name,
         description,
@@ -21,9 +21,7 @@ const createPlaylist = async (name: string, description: string) => {
 
 const getUserPlaylist = async (userId: string) => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:8000/api/v1/playlist/getUsersPlaylists/${userId}`
-    );
+    const { data } = await axios.get(`/playlist/getUsersPlaylists/${userId}`);
     return data.data;
   } catch (error) {
     //@ts-ignore
@@ -33,9 +31,7 @@ const getUserPlaylist = async (userId: string) => {
 
 const getPlaylistById = async (playlistId: string) => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:8000/api/v1/playlist/getPlaylistById/${playlistId}`
-    );
+    const { data } = await axios.get(`/playlist/getPlaylistById/${playlistId}`);
     return data.data;
   } catch (error) {
     //@ts-ignore
@@ -50,7 +46,7 @@ const updatePlaylistDetails = async (
 ) => {
   try {
     const { data } = await axios.patch(
-      `http://localhost:8000/api/v1/playlist/updatePlaylist/${playlistId}`,
+      `/playlist/updatePlaylist/${playlistId}`,
       {
         name,
         description,
@@ -69,7 +65,7 @@ const updatePlaylistDetails = async (
 const removeVideoFromPlaylist = async (playlistId: string, videoId: string) => {
   try {
     const { data } = await axios.patch(
-      `http://localhost:8000/api/v1/playlist/removeVideo/${playlistId}/${videoId}`,
+      `/playlist/removeVideo/${playlistId}/${videoId}`,
       {},
       {
         withCredentials: true,
@@ -85,7 +81,7 @@ const removeVideoFromPlaylist = async (playlistId: string, videoId: string) => {
 const addVideoToPlaylist = async (playlistId: string, videoId: string) => {
   try {
     const { data } = await axios.patch(
-      `http://localhost:8000/api/v1/playlist/addVideo/${playlistId}/${videoId}`,
+      `/playlist/addVideo/${playlistId}/${videoId}`,
       {},
       {
         withCredentials: true,
@@ -101,7 +97,7 @@ const addVideoToPlaylist = async (playlistId: string, videoId: string) => {
 const deletePlaylist = async (playlistId: string) => {
   try {
     const { data } = await axios.delete(
-      `http://localhost:8000/api/v1/playlist/deletePlaylist/${playlistId}`,
+      `/playlist/deletePlaylist/${playlistId}`,
       {
         withCredentials: true,
       }

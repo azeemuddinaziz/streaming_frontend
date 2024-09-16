@@ -10,7 +10,7 @@ const registerUser = async (
 ) => {
   try {
     const { data } = await axios.post(
-      "http://localhost:8000/api/v1/users/register",
+      "/users/register",
       {
         fullname,
         username,
@@ -35,7 +35,7 @@ const registerUser = async (
 const loginUser = async (username: String, password: String) => {
   try {
     const { data } = await axios.post(
-      "http://localhost:8000/api/v1/users/login",
+      "/users/login",
       {
         username,
         password,
@@ -57,12 +57,9 @@ const loginUser = async (username: String, password: String) => {
 
 const getCurrentUser = async () => {
   try {
-    const { data } = await axios.get(
-      "http://localhost:8000/api/v1/users/currentUser",
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await axios.get("/users/currentUser", {
+      withCredentials: true,
+    });
     return data.data;
   } catch (error) {
     //@ts-ignore
@@ -72,9 +69,7 @@ const getCurrentUser = async () => {
 
 const getUserByUsername = async (username: string) => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:8000/api/v1/users/channel/${username}`
-    );
+    const { data } = await axios.get(`/users/channel/${username}`);
     return data.data;
   } catch (error) {
     //@ts-ignore
@@ -84,12 +79,9 @@ const getUserByUsername = async (username: string) => {
 
 const getChannelByChannelName = async (channelname: string) => {
   try {
-    const { data } = await axios.get(
-      `http://localhost:8000/api/v1/users/channel/${channelname}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await axios.get(`/users/channel/${channelname}`, {
+      withCredentials: true,
+    });
     return data.data;
   } catch (error) {
     //@ts-ignore
@@ -100,7 +92,7 @@ const getChannelByChannelName = async (channelname: string) => {
 const refreshUserTokens = async () => {
   try {
     const { data } = await axios.post(
-      `http://localhost:8000/api/v1/users/refreshToken`,
+      `/users/refreshToken`,
       {},
       {
         withCredentials: true,
@@ -116,7 +108,7 @@ const refreshUserTokens = async () => {
 const changeCoverImage = async (coverImage: File) => {
   try {
     const { data } = await axios.patch(
-      `http://localhost:8000/api/v1/users/updateCoverImage`,
+      `/users/updateCoverImage`,
       { coverImage },
       {
         headers: {
@@ -135,7 +127,7 @@ const changeCoverImage = async (coverImage: File) => {
 const changeAvatar = async (avatar: File) => {
   try {
     const { data } = await axios.patch(
-      `http://localhost:8000/api/v1/users/updateAvatar`,
+      `/users/updateAvatar`,
       { avatar },
       {
         headers: {
@@ -154,7 +146,7 @@ const changeAvatar = async (avatar: File) => {
 const changePassword = async (oldPassword: string, newPassword: string) => {
   try {
     const { data } = await axios.post(
-      `http://localhost:8000/api/v1/users/changePassword`,
+      `/users/changePassword`,
       {
         oldPassword,
         newPassword,
@@ -174,7 +166,7 @@ const changePassword = async (oldPassword: string, newPassword: string) => {
 const logOutUser = async () => {
   try {
     const { data } = await axios.post(
-      `http://localhost:8000/api/v1/users/logout`,
+      `/users/logout`,
       {},
       {
         withCredentials: true,
