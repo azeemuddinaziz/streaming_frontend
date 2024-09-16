@@ -23,7 +23,7 @@ import PlaylistView from "./pages/PlaylistView.tsx";
 import { Toaster } from "sonner";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://streamingbackend.vercel.app/api/v1";
+axios.defaults.baseURL = "https://streaming-backend-y4ex.onrender.com/api/v1";
 
 const router = createBrowserRouter([
   {
