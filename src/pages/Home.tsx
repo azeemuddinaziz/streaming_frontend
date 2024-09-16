@@ -3,6 +3,7 @@ import VideoTile from "@/components/VideoTile.tsx";
 import { useAuth } from "@/context/AuthContext";
 import { getUserPlaylist } from "@/services/playlist.services";
 import { getAllVideos } from "@/services/video.services.ts";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Video = {
@@ -22,12 +23,15 @@ function Home({ className, query }: Props) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [error, setError] = useState();
   const [userPlaylist, setUserPlaylist] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
     try {
       //@ts-ignore
       setError(null);
+      setIsLoading(true);
+
       (async () => {
         //@ts-ignore
         setUserPlaylist(await getUserPlaylist(user._id));
@@ -36,11 +40,22 @@ function Home({ className, query }: Props) {
       (async () => {
         setVideos(await getAllVideos(query || ""));
       })();
+
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       //@ts-ignore
       setError(error);
     }
   }, [user, query]);
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <Loader2 className="animate-spin" size={200} />
+      </div>
+    );
+  }
 
   if (error) {
     return <div>Error occured while loading videos: {error}</div>;
