@@ -93,7 +93,12 @@ function VideoTile({
 
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Button variant={"ghost"} size={"icon"} className="rounded-full">
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                className="rounded-full"
+                asChild
+              >
                 <EllipsisVertical className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
