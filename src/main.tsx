@@ -24,6 +24,7 @@ import { Toaster } from "sonner";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://streaming-backend-y4ex.onrender.com";
+axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
   {
