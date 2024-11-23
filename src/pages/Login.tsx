@@ -26,8 +26,11 @@ function Login() {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState<FormData>();
-  const [error, setError] = useState();
+  const [formData, setFormData] = useState<FormData>({
+    username: "Guest",
+    password: "Guest",
+  });
+  const [error, setError] = useState<any>();
 
   if (isAuthenticated) {
     setTimeout(() => {
@@ -61,8 +64,11 @@ function Login() {
     setIsLoading(true);
 
     try {
-      // @ts-ignore
       const { username, password } = formData;
+
+      if (!username || !password) {
+        throw new Error("Username and password are required");
+      }
 
       const data = await loginUser(username, password);
 
@@ -76,7 +82,6 @@ function Login() {
     } catch (error) {
       setIsAuthenticated(false);
       setIsLoading(false);
-      //@ts-ignore
       setError(error);
       return error;
     }
@@ -109,7 +114,7 @@ function Login() {
                 type="text"
                 id="username"
                 placeholder="Username"
-                value="Test"
+                defaultValue={"Guest"}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
@@ -123,7 +128,7 @@ function Login() {
                 type="password"
                 id="password"
                 placeholder="Password"
-                value="Test"
+                defaultValue={"Guest"}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
