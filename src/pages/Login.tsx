@@ -109,6 +109,7 @@ function Login() {
                 type="text"
                 id="username"
                 placeholder="Username"
+                value="Test"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setFormData({ ...formData, username: e.target.value })
                 }
@@ -122,6 +123,7 @@ function Login() {
                 type="password"
                 id="password"
                 placeholder="Password"
+                value="Test"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
