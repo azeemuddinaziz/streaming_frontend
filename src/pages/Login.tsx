@@ -155,6 +155,17 @@ function Login() {
             Register here
           </Link>
         </CardFooter>
+
+        <Button
+          className="w-full m-2 "
+          variant={"outline"}
+          onClick={() => {
+            setUser({ username: "Guest", password: "Guest" });
+            setIsAuthenticated(true);
+          }}
+        >
+          Login as Guest
+        </Button>
       </Card>
     </div>
   );
