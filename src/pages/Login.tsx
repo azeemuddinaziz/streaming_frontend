@@ -163,7 +163,7 @@ function Login() {
           </Link>
         </CardFooter>
 
-        <Button
+{/*         <Button
           className="w-full m-2 "
           variant={"outline"}
           onClick={() => {
@@ -172,7 +172,7 @@ function Login() {
           }}
         >
           Login as Guest
-        </Button>
+        </Button> */}
       </Card>
     </div>
   );
