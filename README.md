@@ -1,18 +1,26 @@
-# Streaming Platform — Frontend (v1)
+# Streamsouk — Frontend (v1)
 
-Frontend for a **video streaming platform**.
-
-This repository contains the **frontend application** only. It’s a **toy/learning project** used to practice **React** and to **integrate with APIs**.
+> [!NOTE]
+> This repository contains v1 of the Streamsouk frontend and is no longer actively maintained. For the latest version, please navigate to **[Streaming Monorepo](https://github.com/azeemuddinaziz/streaming_frontend)**.
+>
+> The updated architecture in v2 uses a **monorepo** where both frontend and backend reside in the same repository.
 
 ## Tech Stack
 
 ![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=for-the-badge)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=fff&style=for-the-badge)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=for-the-badge)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=for-the-badge)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=fff&style=for-the-badge)
 
-## Notes
+## Key Features
 
-- This is **version 1 (v1)** of the platform.
-- **Version 2 (v2)** lives in: **[repo link]**.
-  - The updated architecture uses a **monorepo** where **both frontend and backend** live in the same repository.
+- User authentication (register, login, logout, change password, refresh token)
+- Video upload, playback, and management
+- Playlist creation and viewing
+- Channel subscriptions
+- Search for videos and channels
+- User profiles
+- Commenting and liking functionality
+- Tweet-like posts (for channel updates or short messages)
+
+This repository contains the **frontend application** only. It’s a **toy/learning project** used to practice **React** and to **integrate with APIs**.
