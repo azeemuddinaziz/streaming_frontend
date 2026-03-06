@@ -1,7 +1,7 @@
 # Streamsouk — Frontend (v1)
 
 > [!NOTE]
-> This repository contains v1 of the Streamsouk frontend and is no longer actively maintained. For the latest version, please navigate to **[Streaming Monorepo](https://github.com/azeemuddinaziz/streaming_frontend)**.
+> This repository contains v1 of the Streamsouk frontend and is no longer actively maintained. For the latest version, please navigate to **[Streaming Monorepo](https://github.com/azeemuddinaziz/streaming)**.
 >
 > The updated architecture in v2 uses a **monorepo** where both frontend and backend reside in the same repository.
 
